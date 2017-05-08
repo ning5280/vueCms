@@ -180,7 +180,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'welcome',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
