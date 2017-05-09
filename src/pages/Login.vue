@@ -19,9 +19,9 @@
             </div>
             <div class="row cl">
               <div class="formControls col-xs-8 col-xs-offset-3">
-                <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                <img src="images/VerifyCode.aspx.png">
-                <a id="kanbuq" href="javascript:;">看不清，换一张</a>
+                <input class="input-text size-L" type="text" placeholder="验证码"   value="验证码:" style="width:150px;">
+                <img :src="serverPath+'captcha'" @click="resetCode($event)">
+         
               </div>
             </div>
             <div class="row cl">
@@ -45,12 +45,19 @@
 </template>
 
 <script>
-
+import config from '../config/config'
 export default {
   name: 'Login',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      serverPath: config.serverPath
+    }
+  },
+  methods: {
+    resetCode: function (event) {
+      let dom = event.target
+      dom.src = this.serverPath + 'captcha?a=' + Math.random
     }
   }
 }
