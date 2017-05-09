@@ -8,18 +8,18 @@
             <div class="row cl">
               <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
               <div class="formControls col-xs-8">
-                <input id="" name="" type="text" placeholder="账户" class="input-text size-L">
+                <input v-model="form.username" type="text" placeholder="账户" class="input-text size-L">
               </div>
             </div>
             <div class="row cl">
               <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
               <div class="formControls col-xs-8">
-                <input id="" name="" type="password" placeholder="密码" class="input-text size-L">
+                <input v-model="form.password" type="password" placeholder="密码" class="input-text size-L">
               </div>
             </div>
             <div class="row cl">
               <div class="formControls col-xs-8 col-xs-offset-3">
-                <input class="input-text size-L" type="text" placeholder="验证码"   value="验证码:" style="width:150px;">
+                <input class="input-text size-L" v-model="form.code" type="text" placeholder="验证码"   value="验证码:" style="width:150px;">
                 <img :src="serverPath+'captcha'" @click="resetCode($event)">
          
               </div>
@@ -33,7 +33,7 @@
             </div>
             <div class="row cl">
               <div class="formControls col-xs-8 col-xs-offset-3">
-                <input name="" type="submit" class="btn btn-success radius size-L" value='登录'>
+                <input @click="login(form)" type="button" class="btn btn-success radius size-L" value='登录'>
                 <input name="" type="reset" class="btn btn-default radius size-L" value="取消">
               </div>
             </div>
@@ -46,18 +46,29 @@
 
 <script>
 import config from '../config/config'
+// import publicFunc from '../common/publicFunc'
 export default {
   name: 'Login',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      serverPath: config.serverPath
+      serverPath: config.serverPath,
+      form: {
+        username: '',
+        password: '',
+        code: ''
+      }
     }
   },
   methods: {
     resetCode: function (event) {
       let dom = event.target
       dom.src = this.serverPath + 'captcha?a=' + Math.random
+    },
+    login: function (formData) {
+      this.$http.post('/api/admin/login/index', formData).then(res => {
+        console.log(res)
+      })
     }
   }
 }
