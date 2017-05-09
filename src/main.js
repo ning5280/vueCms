@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
+import store from './store'
 import 'element-ui/lib/theme-default/index.css'
 Vue.config.productionTip = false
 
@@ -12,11 +13,12 @@ Vue.use(VueResource)
 Vue.use(ElementUI)
 // ajax钩子函数
 Vue.http.interceptors.push((request, next) => {
-  console.log('ajaxkaishi')
+  console.log(store)
+  store.dispatch('changeLoadingStatus', 1)
 // ajax开始前
-  // request.method = 'POST'
   next((response) => {
     console.log('ajaxjieshu')
+    store.dispatch('changeLoadingStatus', 0)
 // 请求结束后
     return response
   })
@@ -25,6 +27,7 @@ Vue.http.interceptors.push((request, next) => {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: {
     App
