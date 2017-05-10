@@ -3,12 +3,11 @@ import Cookies from 'js-cookie'
 const user = {
   state: {
     user: '',
+    token: sessionStorage.getItem('token') ? sessionStorage.getItem('token') : '',
     status: '',
-    email: '',
     code: '',
     uid: undefined,
     auth_type: '',
-    token: Cookies.get('X-Ivanka-Token'),
     name: '',
     avatar: '',
     introduction: '',
@@ -21,6 +20,9 @@ const user = {
   mutations: {
     SET_AUTH_TYPE: (state, type) => {
       state.auth_type = type
+    },
+    SET_TOKEN: (state, token) => {
+      state.token = token
     }
 
   },

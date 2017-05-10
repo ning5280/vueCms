@@ -3,10 +3,10 @@
     
     <div class="menu_dropdown bk_2">
       <dl id="menu-article">
-        <dt><i class="Hui-iconfont">&#xe616;</i> 资讯管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dt><i class="Hui-iconfont">&#xe616;</i> 栏目管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
           <ul>
-            <li><a href="article-list.html" title="资讯管理">资讯管理</a></li>
+            <li><router-link :to="{name: 'catelist'}">栏目列表</router-link></li>  
       </ul>
     </dd>
   </dl>
@@ -14,7 +14,9 @@
         <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
           <ul>
-            <li><a href="picture-list.html" title="图片管理">图片管理</a></li>
+            <li>
+                <router-link :to="{name: 'catelist'}">栏目列表</router-link>
+            </li>
       </ul>
     </dd>
   </dl>

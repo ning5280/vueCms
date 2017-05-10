@@ -20,7 +20,7 @@
             <div class="row cl">
               <div class="formControls col-xs-8 col-xs-offset-3">
                 <input class="input-text size-L" v-model="form.code" type="text" placeholder="验证码"   value="验证码:" style="width:150px;">
-                <img :src="serverPath+'captcha'" @click="resetCode($event)">
+                <img :src="serverPath+'admin/login/code'" @click="resetCode($event)">
          
               </div>
             </div>
@@ -40,12 +40,13 @@
           </form>
         </div>
       </div>
-      <div class="footer">Copyright 你的公司名称 by H-ui.admin.page.v3.0</div>
+      <div class="footer">Copyright 你的公司名称 by H-ui.admin.page.v3.0{{token}}</div>
     </div>
 </template>
 
 <script>
 import config from '../config/config'
+import { mapGetters } from 'vuex'
 // import publicFunc from '../common/publicFunc'
 export default {
   name: 'Login',
@@ -63,13 +64,35 @@ export default {
   methods: {
     resetCode: function (event) {
       let dom = event.target
-      dom.src = this.serverPath + 'captcha?a=' + Math.random
+      dom.src = this.serverPath + 'admin/login/code?a=' + Math.random
     },
     login: function (formData) {
-      this.$http.post('/api/admin/login/index', formData).then(res => {
-        console.log(res)
+      let data = {
+        username: formData.username,
+        password: formData.password,
+        code: formData.code
+      }
+      this.$http.post('/api/admin/login/index', data).then(res => {
+        if (res.status === 200 && res.body.code === 1) {
+          let data = res.body
+          sessionStorage.setItem('token', data.data.token)
+          this.$store.commit('SET_TOKEN', data.data.token)
+          this.$router.push({ name: 'Home' })
+        } else {
+           this.$message({
+              showClose: true,
+              message: '用户名或密码错误',
+              type: 'error'
+            })
+          // this.$store.commit('SET_TOKEN', 'd1212')
+        }
       })
     }
+  },
+  computed: {
+    ...mapGetters([
+       'token'
+    ])
   }
 }
 </script>
