@@ -4,6 +4,8 @@ import Home from '@/pages/Home'
 import Login from '@/pages/Login'
 import Welcome from '@/components/Welcome'
 import CategoryList from '@/pages/CategoryList'
+import MenuList from '@/pages/MenuList'
+
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +24,11 @@ export default new Router({
           path: '/catelist',
           name: 'catelist',
           component: CategoryList
+        },
+         {
+          path: '/menulist',
+          name: 'menulist',
+          component: MenuList
         }
       ]
     },

@@ -11,11 +11,11 @@
     </dd>
   </dl>
       <dl id="menu-picture">
-        <dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dt><i class="Hui-iconfont">&#xe613;</i> 菜单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
           <ul>
             <li>
-                <router-link :to="{name: 'catelist'}">栏目列表</router-link>
+                <router-link :to="{name: 'menulist'}">菜单列表</router-link>
             </li>
       </ul>
     </dd>
