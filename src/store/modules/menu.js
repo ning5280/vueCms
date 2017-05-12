@@ -1,6 +1,5 @@
-import Vue from 'vue'
-import VueRreource from 'vue-resource'
-Vue.use(VueRreource)
+
+import publicFunc from '@/common/publicFunc'
 const menu = {
   state: {
     menuList: []
@@ -12,16 +11,12 @@ const menu = {
   },
   actions: {
      changeMenuList: ({ commit }, list) => {
-      Vue.http.post('/api/admin/menu/tree').then(res => {
-        if (res.status === 200 && res.body.code === 1) {
-          commit('CHANGE_MENULIST', res.data.data)
-        } else {
-           this.$message({
-              showClose: true,
-              message: '获取菜单失败',
-              type: 'error'
-            })
-        }
+       publicFunc.ajaxPost({
+         url: '/api/admin/menu/tree',
+         success: res => {
+            let data = res.data.data
+            commit('CHANGE_MENULIST', data)
+         }
        })
     }
   }

@@ -1,5 +1,5 @@
 <template>
-      <section class="Hui-article-box">
+  <section class="Hui-article-box">
      <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a> 
       <span class="c-999 en">&gt;</span>
       <span class="c-666">{{title}}</span> 
@@ -58,7 +58,6 @@
     <el-button @click="toggleSelection()">取消选择</el-button>
   </div>
 <br>
-
     <foot></foot>
   </div>
   </section>
@@ -67,6 +66,7 @@
 <script>
 import foot from '@/components/foot'
 import addMenu from '@/pages/AddMenu'
+import publicFunc from '@/common/publicFunc'
 export default {
   name: 'MenuList',
   data () {
@@ -108,14 +108,25 @@ export default {
         console.log(index, row)
       },
       handleDelete (index, row) {
-        console.log(index, row)
+        publicFunc.confirm({
+          success: () => {
+            publicFunc.ajaxPost({
+              url: '/api/admin/menu/del',
+              data: {id: row.id},
+              success: () => {
+                this.$store.dispatch('changeMenuList')
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+              }
+            })
+          }
+        })
       }
     },
   created: function () {
     this.$store.dispatch('changeMenuList')
-    // this.$http.post('/api/admin/menu/tree').then(res => {
-    //   this.$store.dispatch('changeMenuList', res.data.data)
-    // })
   }
 }
 </script>
