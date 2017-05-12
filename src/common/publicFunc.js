@@ -25,7 +25,23 @@ const ajaxPost = e => {
         }
     })
 }
-
+// const ajaxPostSync = function (e) {
+//     e.url = e.url ? e.url : ''
+//     e.data = e.data ? e.data : {}
+//     e.cb = e.success ? e.success : function () {}
+//   var promise = new Promise(function (resolve, reject) {
+//     Vue.http.post(e.url, e.data).then(res => {
+//         if (res.status === 200 && res.body.code === 1) {
+//            resolve(res.data.data)
+//         } else if (res.status !== 200) {
+//             reject(res)
+//         } else {
+//             reject(res.data)
+//         }
+//     })
+//   })
+//   return promise
+// }
 const confirm = e => {
     e.title = e.title ? e.title : '确定要删除吗？'
     e.success = e.success ? e.success : function () {}
