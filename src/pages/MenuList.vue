@@ -8,8 +8,11 @@
     <br>
     <el-button @click="dialogFormVisible = true">添加菜单</el-button>
 
-    <el-dialog title="添加菜单" :visible.sync="dialogFormVisible" :modal="false" >
-     <add-menu :menuList = 'tableData3'></add-menu>
+    <el-dialog title="添加菜单"  :visible.sync="dialogFormVisible" :modal="false" >
+     <add-menu @close = 'closeDialog("dialogFormVisible")'></add-menu>
+    </el-dialog>
+    <el-dialog title="编辑菜单" :visible.sync="dialogFormVisible1" :modal="false" >
+     <edit-menu  :form = 'menuInfo' @close = 'closeDialog("dialogFormVisible1")'></edit-menu>
     </el-dialog>
 
     <el-table
@@ -25,8 +28,14 @@
     </el-table-column>
     <el-table-column
       label="名称"
+      width="220">
+      <template scope="scope">{{ scope.row.title_show }}</template>
+    </el-table-column>
+        <el-table-column
+      label="菜单等级"
       width="120">
-      <template scope="scope">{{ scope.row.title }}</template>
+      <template scope="scope">{{ scope.row.level+1 }}</template>
+      
     </el-table-column>
     <el-table-column
       prop="sort"
@@ -66,6 +75,7 @@
 <script>
 import foot from '@/components/foot'
 import addMenu from '@/pages/AddMenu'
+import editMenu from '@/pages/editMenu'
 import publicFunc from '@/common/publicFunc'
 export default {
   name: 'MenuList',
@@ -74,13 +84,16 @@ export default {
       title: '栏目列表',
       msg: 'Welcome to Your Vue.js App',
       dialogFormVisible: false,
+      dialogFormVisible1: false,
       total: 0,
-      multipleSelection: []
+      multipleSelection: [],
+      menuInfo: {}
     }
   },
   components: {
     foot,
-    addMenu
+    addMenu,
+    editMenu
   },
   computed: {
     tableData3 () {
@@ -106,6 +119,8 @@ export default {
       },
       handleEdit (index, row) {
         console.log(index, row)
+        this.menuInfo = this.tableData3[index]
+        this.dialogFormVisible1 = true
       },
       handleDelete (index, row) {
         publicFunc.confirm({
@@ -123,6 +138,9 @@ export default {
             })
           }
         })
+      },
+      closeDialog (dialogName) {
+        this[[dialogName]] = false
       }
     },
   created: function () {

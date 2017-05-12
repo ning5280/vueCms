@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import { MessageBox } from 'element-ui'
+import { MessageBox, Message } from 'element-ui'
 
 Vue.use(VueResource)
 const ajaxPost = e => {
@@ -11,13 +11,13 @@ const ajaxPost = e => {
         if (res.status === 200 && res.body.code === 1) {
             e.cb(res)
         } else if (res.status !== 200) {
-            this.$message({
+            Message({
                 showClose: true,
                 message: '网络错误',
                 type: 'error'
             })
         } else {
-             this.$message({
+            Message({
                 showClose: true,
                 message: res.data.message,
                 type: 'error'

@@ -14,7 +14,7 @@
       <el-input v-model="form.sort" placeholder="排序"></el-input>
     </el-form-item>
     <el-form-item>
-    <el-button type="primary" @click="add">提交</el-button>
+    <el-button type="primary" @click="edit">提交</el-button>
 
     </el-form-item>
   </el-form>
@@ -23,23 +23,18 @@
 <script>
 import publicFunc from '@/common/publicFunc'
 export default {
-  name: 'AddMenu',
+  name: 'EditMenu',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      form: {
-        title: '',
-        pid: '',
-        sort: 1
-      }
+      msg: 'Welcome to Your Vue.js App'
     }
   },
   components: {
   },
   methods: {
-    add () {
+    edit () {
       publicFunc.ajaxPost({
-        url: '/api/admin/menu/add',
+        url: '/api/admin/menu/edit',
         data: this.form,
         success: res => {
            this.$store.dispatch('changeMenuList')
@@ -64,6 +59,13 @@ export default {
   computed: {
     menuList () {
       return this.$store.getters.menuList
+    }
+  },
+  props: {
+    form: {
+      type: Object,
+      required: true,
+      default: {}
     }
   }
 }
