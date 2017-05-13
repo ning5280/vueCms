@@ -28,7 +28,7 @@
     </el-table-column>
     <el-table-column
       label="名称"
-      width="220">
+      width="420">
       <template scope="scope">{{ scope.row.title_show }}</template>
     </el-table-column>
         <el-table-column
@@ -46,7 +46,10 @@
  
       label="状态"
       show-overflow-tooltip>
-       <template scope="scope">{{ scope.row.status==1?'显示':'隐藏' }}</template>
+       <template scope="scope">
+         <el-button v-if="scope.row.status==1" @click="menuStatus(scope.row,0)" type="success" size="small">已显示</el-button>
+         <el-button v-if="scope.row.status==0" @click="menuStatus(scope.row,1)" type="danger" size="small">已隐藏</el-button>
+       </template>
     </el-table-column>
     <el-table-column label="操作">
       <template scope="scope">
@@ -141,6 +144,16 @@ export default {
       },
       closeDialog (dialogName) {
         this[[dialogName]] = false
+      },
+      menuStatus (row, status) {
+        let id = row.id
+        publicFunc.ajaxPost({
+          url: '/api/admin/menu/changestatus',
+          data: {id: id, status: status},
+          success: res => {
+             this.$store.dispatch('changeMenuList')
+          }
+        })
       }
     },
   created: function () {
