@@ -3,11 +3,9 @@ import Router from 'vue-router'
 import Home from '@/pages/Home'
 import Login from '@/pages/Login'
 import Welcome from '@/components/Welcome'
-import CategoryList from '@/pages/CategoryList'
 import MenuList from '@/pages/MenuList'
-
+import ArticleList from '@/pages/ArticleList'
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {
@@ -20,15 +18,15 @@ export default new Router({
           name: 'welcome',
           component: Welcome
         },
-        {
-          path: '/catelist',
-          name: 'catelist',
-          component: CategoryList
-        },
          {
           path: '/menulist',
           name: 'menulist',
           component: MenuList
+        },
+        {
+          path: '/articlelist',
+          name: 'articlelist',
+          component: ArticleList
         }
       ]
     },
