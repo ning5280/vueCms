@@ -12,7 +12,6 @@ Vue.config.productionTip = false
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
-
 Vue.http.options.emulateJSON = true
 // // ajax钩子函数
 Vue.http.interceptors.push((request, next) => {

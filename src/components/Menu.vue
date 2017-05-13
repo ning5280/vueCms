@@ -19,6 +19,8 @@
           <ul>
             <li>
                 <router-link :to="{name: 'articlelist'}">文章列表</router-link>
+                <router-link :to="{name: 'addarticle'}">添加文章</router-link>
+                
             </li>
       </ul>
     </dd>

@@ -5,6 +5,7 @@ import Login from '@/pages/Login'
 import Welcome from '@/components/Welcome'
 import MenuList from '@/pages/MenuList'
 import ArticleList from '@/pages/ArticleList'
+import AddArticle from '@/pages/AddArticle'
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -27,6 +28,11 @@ export default new Router({
           path: '/articlelist',
           name: 'articlelist',
           component: ArticleList
+        },
+        {
+          path: '/addarticle',
+          name: 'addarticle',
+          component: AddArticle
         }
       ]
     },
