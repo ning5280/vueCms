@@ -65,9 +65,7 @@
   </el-table>
   <div style="margin-top: 20px">
     <el-button @click="toggleSelection('all')">全选</el-button>
-
-    <el-button @click="toggleSelection([tableData3[1], tableData3[2]])">切换第二、第三行的选中状态</el-button>
-    <el-button @click="toggleSelection()">取消选择</el-button>
+    <el-button @click="delAll(multipleSelection)">批量删除</el-button>
   </div>
 <br>
     <foot></foot>
@@ -152,6 +150,27 @@ export default {
           data: {id: id, status: status},
           success: res => {
              this.$store.dispatch('changeMenuList')
+          }
+        })
+      },
+      delAll (list) {
+        var idList = []
+       idList = list.map(function (item) {
+          return item.id
+        })
+         publicFunc.confirm({
+          success: () => {
+            publicFunc.ajaxPost({
+              url: '/api/admin/menu/del',
+              data: {id: idList},
+              success: () => {
+                this.$store.dispatch('changeMenuList')
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                })
+              }
+            })
           }
         })
       }
