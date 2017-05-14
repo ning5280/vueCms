@@ -11,10 +11,8 @@
   <el-form-item label="标题">
     <el-input v-model="form.title"></el-input>
   </el-form-item>
-  <el-form-item label="活动区域">
+  <el-form-item label="所属菜单">
       <el-select v-model="form.mid" placeholder="所属菜单" no-data-text="请选择">
-        <el-option value="0" label="顶级菜单">顶级菜单</el-option>
-
         <el-option v-for="data in menuList" :key="data.id" :value="data.id" :label="data.title_show" v-html="data.title_show"></el-option>
       </el-select>
   </el-form-item>
@@ -25,21 +23,26 @@
     <el-input v-model="form.author"></el-input>
   </el-form-item>
   <el-form-item label="缩略图">
+
     <el-upload
-      class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :show-file-list="false"
+      action="/api/admin/article/upload"
+      name="image"
+      list-type="picture-card"
       :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload">
-      <img v-if="form.img" :src="form.img" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      :before-upload="beforeAvatarUpload"
+      :on-remove="handleRemove">
+      <i class="el-icon-plus"></i>
     </el-upload>
+    <el-dialog v-model="dialogVisible" size="tiny">
+      <img width="100%" :src="dialogImageUrl" alt="">
+    </el-dialog>
+
   </el-form-item>
   <el-form-item label="是否显示">
-    <el-switch on-text="" off-text="" v-model="form.status"></el-switch>
+    <el-switch on-text="" off-text="" on-value="1" off-value="0" v-model="form.status"></el-switch>
   </el-form-item>
   <el-form-item label="是否置顶">
-    <el-switch on-text="" off-text="" ></el-switch>
+    <el-switch on-text="" off-text="" on-value="1" off-value="0"  v-model="form.istop"></el-switch>
   </el-form-item>
   <el-form-item label="活动形式">
     <quill-editor ref="myTextEditor"
@@ -76,10 +79,12 @@ export default {
         content: '',
         keyword: '',
         mid: '',
-        status: '1'
+        status: '1',
+        istop: '0'
       },
       editorOption: {
-      }
+      },
+      dialogVisible: false
     }
   },
   components: {
@@ -89,29 +94,40 @@ export default {
   methods: {
     add () {
       publicFunc.ajaxPost({
-        url: '/api/admin/menu/add',
+        url: '/api/admin/article/add',
         data: this.form,
         success: res => {
-           this.$store.dispatch('changeMenuList')
-           this.$emit('close')
+          console.log(res)
+          if (res.body.code === 1) {
+            this.$router.push({ name: 'articlelist' })
+          }
         }
       })
     },
     handleAvatarSuccess (res, file) {
+        this.form.img = res
         this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload (file) {
+      if (this.form.img) {
+        this.$message.error('只能上传一张缩略图，请删除后再次上传')
+        return false
+      }
         const isJPG = file.type === 'image/jpeg'
+        const isPng = file.type === 'image/png'
         const isLt2M = file.size / 1024 / 1024 < 2
 
-        if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!')
+        if (!isJPG && !isPng) {
+          this.$message.error('上传头像图片只能是 JPG,PNG 格式!')
         }
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!')
         }
         return isJPG && isLt2M
     },
+     handleRemove (file, fileList) {
+        this.form.img = ''
+      },
     onEditorBlur (editor) {
       console.log('editor blur!', editor)
     },
