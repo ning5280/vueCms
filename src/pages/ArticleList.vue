@@ -70,6 +70,19 @@
     <el-button @click="delAll(multipleSelection)">批量删除</el-button>
   </div>
 <br>
+  <div class="block">
+ 
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pageNo"
+      :page-sizes="[5, 10, 15, 20]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="count">
+    </el-pagination>
+  </div>
+  <br/>
     <foot></foot>
   </div>
   </section>
@@ -89,7 +102,8 @@ export default {
       total: 0,
       multipleSelection: [],
       menuInfo: {},
-      tableData3: []
+      pageNo: 1,
+      pageSize: 10
     }
   },
   components: {
@@ -98,8 +112,14 @@ export default {
     editMenu
   },
   computed: {
+    tableData3 () {
+      return this.$store.getters.articleList
+    },
+    count () {
+      return this.$store.getters.articleListCount
+    }
   },
-   methods: {
+  methods: {
       toggleSelection (rows) {
         if (rows === 'all') {
           this.tableData3.forEach(row => {
@@ -171,15 +191,29 @@ export default {
             })
           }
         })
-      }
+      },
+      handleSizeChange (val) {
+        this.pageSize = val
+        this.$store.dispatch('changeArticleList', {
+          where: {},
+          pageNo: 1,
+          pageSize: this.pageSize
+        })
+      },
+      handleCurrentChange (val) {
+        this.pageNo = val
+        this.$store.dispatch('changeArticleList', {
+            where: {},
+            pageNo: this.pageNo,
+            pageSize: this.pageSize
+          })
+        }
     },
   created: function () {
-    publicFunc.ajaxPost({
-      url: '/api/admin/article/index',
-      data: {},
-      success: res => {
-        this.tableData3 = res.body.data
-      }
+    this.$store.dispatch('changeArticleList', {
+      where: {},
+      pageNo: 1,
+      pageSize: 10
     })
   }
 }
