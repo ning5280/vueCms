@@ -20,7 +20,7 @@
     </el-table-column>
     <el-table-column
       label="标题"
-      width="420">
+      width="320">
       <template scope="scope">{{ scope.row.title }}</template>
     </el-table-column>
         <el-table-column

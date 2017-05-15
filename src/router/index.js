@@ -6,6 +6,8 @@ import Welcome from '@/components/Welcome'
 import MenuList from '@/pages/MenuList'
 import ArticleList from '@/pages/ArticleList'
 import AddArticle from '@/pages/AddArticle'
+import EditArticle from '@/pages/EditArticle'
+
 Vue.use(Router)
 export default new Router({
   routes: [
@@ -33,6 +35,11 @@ export default new Router({
           path: '/addarticle',
           name: 'addarticle',
           component: AddArticle
+        },
+         {
+          path: '/editarticle/:id',
+          name: 'editarticle',
+          component: EditArticle
         }
       ]
     },

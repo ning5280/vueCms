@@ -2,12 +2,12 @@
   <section class="Hui-article-box">
      <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a> 
       <span class="c-999 en">&gt;</span>
-      <span class="c-666">添加文章</span> 
+      <span class="c-666">{{title}}</span> 
       <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="Hui-article">
     <br>
 
-    <el-form ref="form" :model="form" label-width="80px" label-position="right">
+    <el-form ref="form" :model="form" label-width="80px" :label-position="top">
   <el-form-item label="标题">
     <el-input v-model="form.title"></el-input>
   </el-form-item>
@@ -69,7 +69,7 @@ import publicFunc from '@/common/publicFunc'
 import foot from '@/components/foot'
 import { quillEditor } from 'vue-quill-editor'
 export default {
-  name: 'AddArticle',
+  name: 'EditArticle',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -84,8 +84,7 @@ export default {
       },
       editorOption: {
       },
-      dialogVisible: false,
-      dialogImageUrl: ''
+      dialogVisible: false
     }
   },
   components: {
@@ -114,7 +113,6 @@ export default {
         this.$message.error('只能上传一张缩略图，请删除后再次上传')
         return false
       }
-
         const isJPG = file.type === 'image/jpeg'
         const isPng = file.type === 'image/png'
         const isLt2M = file.size / 1024 / 1024 < 2
@@ -125,7 +123,7 @@ export default {
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!')
         }
-        return (!isJPG || !isPng) && isLt2M
+        return isJPG && isLt2M
     },
      handleRemove (file, fileList) {
         this.form.img = ''
@@ -145,6 +143,14 @@ export default {
     }
   },
   created: function () {
+    let id = this.$route.params.id
+    publicFunc.ajaxPost({
+      url: '/api/admin/article/info',
+      data: {id: id},
+      success: res => {
+        this.form = res.body.data
+      }
+    })
    this.$store.dispatch('changeMenuList')
   },
   computed: {
