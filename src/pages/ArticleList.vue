@@ -145,10 +145,14 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/menu/del',
+              url: '/api/admin/article/del',
               data: {id: row.id},
               success: () => {
-                this.$store.dispatch('changeMenuList')
+                this.$store.dispatch('changeArticleList', {
+                    where: {},
+                    pageNo: this.pageNo,
+                    pageSize: this.pageSize
+                })
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
@@ -183,10 +187,14 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/menu/del',
+              url: '/api/admin/article/del',
               data: {id: idList},
               success: () => {
-                this.$store.dispatch('changeMenuList')
+                this.$store.dispatch('changeArticleList', {
+                    where: {},
+                    pageNo: this.pageNo,
+                    pageSize: this.pageSize
+                })
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
