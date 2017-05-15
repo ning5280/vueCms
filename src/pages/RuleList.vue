@@ -12,7 +12,7 @@
      <add-rule @close = 'closeDialog("dialogFormVisible")'></add-rule>
     </el-dialog>
     <el-dialog title="编辑菜单" :visible.sync="dialogFormVisible1" :modal="false" >
-     <edit-menu  :form = 'menuInfo' @close = 'closeDialog("dialogFormVisible1")'></edit-menu>
+     <edit-rule  :form = 'ruleInfo' @close = 'closeDialog("dialogFormVisible1")'></edit-rule>
     </el-dialog>
 
     <el-table
@@ -43,7 +43,11 @@
       <template scope="scope">{{ scope.row.type==1?"模块":scope.row.type==2?"控制器":"方法" }}</template>
       
     </el-table-column>
-   
+      <el-table-column
+      label="排序"
+      width="100">
+      <template scope="scope">{{ scope.row.sort }}</template>
+    </el-table-column>
     <el-table-column
  
       label="状态"
@@ -78,7 +82,7 @@
 <script>
 import foot from '@/components/foot'
 import addRule from '@/pages/AddRule'
-import editMenu from '@/pages/editMenu'
+import editRule from '@/pages/editRule'
 import publicFunc from '@/common/publicFunc'
 export default {
   name: 'RuleList',
@@ -90,13 +94,13 @@ export default {
       dialogFormVisible1: false,
       total: 0,
       multipleSelection: [],
-      menuInfo: {}
+      ruleInfo: {}
     }
   },
   components: {
     foot,
     addRule,
-    editMenu
+    editRule
   },
   computed: {
     tableData3 () {
@@ -122,17 +126,17 @@ export default {
       },
       handleEdit (index, row) {
         console.log(index, row)
-        this.menuInfo = this.tableData3[index]
+        this.ruleInfo = this.tableData3[index]
         this.dialogFormVisible1 = true
       },
       handleDelete (index, row) {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/menu/del',
+              url: '/api/admin/rule/del',
               data: {id: row.id},
               success: () => {
-                this.$store.dispatch('changeMenuList')
+                this.$store.dispatch('changeRuleList')
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
@@ -148,10 +152,10 @@ export default {
       menuStatus (row, status) {
         let id = row.id
         publicFunc.ajaxPost({
-          url: '/api/admin/menu/changestatus',
+          url: '/api/admin/rule/changestatus',
           data: {id: id, status: status},
           success: res => {
-             this.$store.dispatch('changeMenuList')
+             this.$store.dispatch('changeRuleList')
           }
         })
       },
@@ -163,10 +167,10 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/menu/del',
+              url: '/api/admin/rule/del',
               data: {id: idList},
               success: () => {
-                this.$store.dispatch('changeMenuList')
+                this.$store.dispatch('changeRuleList')
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
