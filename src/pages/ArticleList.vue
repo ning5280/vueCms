@@ -49,8 +49,8 @@
       label="状态"
       show-overflow-tooltip>
        <template scope="scope">
-         <el-button v-if="scope.row.status==1" @click="menuStatus(scope.row,0)" type="success" size="small">已显示</el-button>
-         <el-button v-if="scope.row.status==0" @click="menuStatus(scope.row,1)" type="danger" size="small">已隐藏</el-button>
+         <el-button v-if="scope.row.status==1" @click="articleStatus(scope.row,0)" type="success" size="small">已显示</el-button>
+         <el-button v-if="scope.row.status==0" @click="articleStatus(scope.row,1)" type="danger" size="small">已隐藏</el-button>
        </template>
     </el-table-column>
     <el-table-column label="操作">
@@ -161,13 +161,17 @@ export default {
       closeDialog (dialogName) {
         this[[dialogName]] = false
       },
-      menuStatus (row, status) {
+      articleStatus (row, status) {
         let id = row.id
         publicFunc.ajaxPost({
-          url: '/api/admin/menu/changestatus',
+          url: '/api/admin/article/changestatus',
           data: {id: id, status: status},
           success: res => {
-             this.$store.dispatch('changeMenuList')
+             this.$store.dispatch('changeArticleList', {
+                where: {},
+                pageNo: this.pageNo,
+                pageSize: this.pageSize
+             })
           }
         })
       },
