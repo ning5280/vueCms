@@ -2,20 +2,20 @@
 import publicFunc from '@/common/publicFunc'
 const menu = {
   state: {
-    menuList: []
+    ruleList: []
   },
   mutations: {
-    CHANGE_MENULIST: (state, list) => {
-        state.menuList = list
+    CHANGE_RULELIST: (state, list) => {
+        state.ruleList = list
     }
   },
   actions: {
-     changeMenuList: ({ commit }, list) => {
+     changeRuleList: ({ commit }, list) => {
        publicFunc.ajaxPost({
-         url: '/api/admin/menu/tree',
+         url: '/api/admin/rule/tree',
          success: res => {
             let data = res.body.data
-            commit('CHANGE_MENULIST', data)
+            commit('CHANGE_RULELIST', data)
          }
        })
     }

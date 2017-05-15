@@ -7,6 +7,7 @@ import MenuList from '@/pages/MenuList'
 import ArticleList from '@/pages/ArticleList'
 import AddArticle from '@/pages/AddArticle'
 import EditArticle from '@/pages/EditArticle'
+import RuleList from '@/pages/RuleList'
 
 Vue.use(Router)
 export default new Router({
@@ -40,6 +41,11 @@ export default new Router({
           path: '/editarticle/:id',
           name: 'editarticle',
           component: EditArticle
+        },
+        {
+          path: '/rulelist',
+          name: 'rulelist',
+          component: RuleList
         }
       ]
     },

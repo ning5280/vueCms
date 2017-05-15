@@ -2,14 +2,14 @@
   <section class="Hui-article-box">
      <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a> 
       <span class="c-999 en">&gt;</span>
-      <span class="c-666">菜单列表</span> 
+      <span class="c-666">规则列表</span> 
       <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="Hui-article">
     <br>
-    <el-button @click="dialogFormVisible = true">添加菜单</el-button>
+    <el-button @click="dialogFormVisible = true">添加规则</el-button>
 
     <el-dialog title="添加菜单"  :visible.sync="dialogFormVisible" :modal="false" >
-     <add-menu @close = 'closeDialog("dialogFormVisible")'></add-menu>
+     <add-rule @close = 'closeDialog("dialogFormVisible")'></add-rule>
     </el-dialog>
     <el-dialog title="编辑菜单" :visible.sync="dialogFormVisible1" :modal="false" >
      <edit-menu  :form = 'menuInfo' @close = 'closeDialog("dialogFormVisible1")'></edit-menu>
@@ -31,17 +31,19 @@
       width="420">
       <template scope="scope">{{ scope.row.title_show }}</template>
     </el-table-column>
+     <el-table-column
+      prop="name"
+      label="定义"
+      width="120">
+    </el-table-column>
+
         <el-table-column
       label="菜单等级"
       width="120">
-      <template scope="scope">{{ scope.row.level+1 }}</template>
+      <template scope="scope">{{ scope.row.type==1?"模块":scope.row.type==2?"控制器":"方法" }}</template>
       
     </el-table-column>
-    <el-table-column
-      prop="sort"
-      label="序号"
-      width="120">
-    </el-table-column>
+   
     <el-table-column
  
       label="状态"
@@ -75,14 +77,14 @@
 
 <script>
 import foot from '@/components/foot'
-import addMenu from '@/pages/AddMenu'
+import addRule from '@/pages/AddRule'
 import editMenu from '@/pages/editMenu'
 import publicFunc from '@/common/publicFunc'
 export default {
-  name: 'MenuList',
+  name: 'RuleList',
   data () {
     return {
-      title: '栏目列表',
+      title: '规则列表',
       msg: 'Welcome to Your Vue.js App',
       dialogFormVisible: false,
       dialogFormVisible1: false,
@@ -93,12 +95,12 @@ export default {
   },
   components: {
     foot,
-    addMenu,
+    addRule,
     editMenu
   },
   computed: {
     tableData3 () {
-      return this.$store.getters.menuList
+      return this.$store.getters.ruleList
     }
   },
    methods: {
@@ -176,7 +178,7 @@ export default {
       }
     },
   created: function () {
-    this.$store.dispatch('changeMenuList')
+    this.$store.dispatch('changeRuleList')
   }
 }
 </script>

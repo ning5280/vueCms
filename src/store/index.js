@@ -7,13 +7,15 @@ import app from './modules/app'
 import user from './modules/user'
 import menu from './modules/menu'
 import article from './modules/article'
+import rule from './modules/rule'
 
 const store = new Vuex.Store({
   modules: {
     app,
     user,
     menu,
-    article
+    article,
+    rule
   },
   getters
 })
