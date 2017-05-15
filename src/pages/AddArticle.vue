@@ -24,18 +24,17 @@
   </el-form-item>
   <el-form-item label="缩略图">
 
-    <el-upload
-      action="/api/admin/article/upload"
-      name="image"
-      list-type="picture-card"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      :on-remove="handleRemove">
-      <i class="el-icon-plus"></i>
-    </el-upload>
-    <el-dialog v-model="dialogVisible" size="tiny">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
+<el-upload
+  class="upload-demo"
+  action="/api/admin/article/upload"
+  :before-upload="handlePreview"
+  :on-remove="handleRemove"
+  :on-success="handleAvatarSuccess"
+  name="image"
+  list-type="picture">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
 
   </el-form-item>
   <el-form-item label="是否显示">
@@ -84,8 +83,7 @@ export default {
       },
       editorOption: {
       },
-      dialogVisible: false,
-      dialogImageUrl: ''
+      dialogVisible: false
     }
   },
   components: {
@@ -109,7 +107,7 @@ export default {
         this.form.img = res
         this.imageUrl = URL.createObjectURL(file.raw)
     },
-    beforeAvatarUpload (file) {
+    handlePreview (file) {
       if (this.form.img) {
         this.$message.error('只能上传一张缩略图，请删除后再次上传')
         return false

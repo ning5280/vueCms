@@ -2,12 +2,12 @@
   <section class="Hui-article-box">
      <nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a> 
       <span class="c-999 en">&gt;</span>
-      <span class="c-666">{{title}}</span> 
+      <span class="c-666">文章编辑</span> 
       <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="Hui-article">
     <br>
 
-    <el-form ref="form" :model="form" label-width="80px" :label-position="top">
+    <el-form ref="form" :model="form" label-width="80px" label-position="right">
   <el-form-item label="标题">
     <el-input v-model="form.title"></el-input>
   </el-form-item>
@@ -24,18 +24,19 @@
   </el-form-item>
   <el-form-item label="缩略图">
 
-    <el-upload
-      action="/api/admin/article/upload"
-      name="image"
-      list-type="picture-card"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-      :on-remove="handleRemove">
-      <i class="el-icon-plus"></i>
-    </el-upload>
-    <el-dialog v-model="dialogVisible" size="tiny">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
+<el-upload
+  class="upload-demo"
+  action="/api/admin/article/upload"
+  list
+  :before-upload="handlePreview"
+  :on-remove="handleRemove"
+  :on-success="handleAvatarSuccess"
+  name="image"
+  :file-list = "imageUrl"
+  list-type="picture">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+</el-upload>
 
   </el-form-item>
   <el-form-item label="是否显示">
@@ -80,11 +81,13 @@ export default {
         keyword: '',
         mid: '',
         status: '1',
-        istop: '0'
+        istop: '0',
+        id: '0'
       },
       editorOption: {
       },
-      dialogVisible: false
+      dialogVisible: false,
+      imageUrl: []
     }
   },
   components: {
@@ -94,7 +97,7 @@ export default {
   methods: {
     add () {
       publicFunc.ajaxPost({
-        url: '/api/admin/article/add',
+        url: '/api/admin/article/edit',
         data: this.form,
         success: res => {
           console.log(res)
@@ -104,15 +107,15 @@ export default {
         }
       })
     },
-    handleAvatarSuccess (res, file) {
+    handleAvatarSuccess (res) {
         this.form.img = res
-        this.imageUrl = URL.createObjectURL(file.raw)
     },
-    beforeAvatarUpload (file) {
-      if (this.form.img) {
+    handlePreview (file) {
+     if (this.form.img) {
         this.$message.error('只能上传一张缩略图，请删除后再次上传')
         return false
       }
+
         const isJPG = file.type === 'image/jpeg'
         const isPng = file.type === 'image/png'
         const isLt2M = file.size / 1024 / 1024 < 2
@@ -123,9 +126,9 @@ export default {
         if (!isLt2M) {
           this.$message.error('上传头像图片大小不能超过 2MB!')
         }
-        return isJPG && isLt2M
+        return (!isJPG || !isPng) && isLt2M
     },
-     handleRemove (file, fileList) {
+     handleRemove () {
         this.form.img = ''
       },
     onEditorBlur (editor) {
@@ -149,6 +152,12 @@ export default {
       data: {id: id},
       success: res => {
         this.form = res.body.data
+        delete (this.form.create_time)
+        delete (this.form.update_time)
+        // this.imageUrl = [{name: '缩略图', url: '/api/uploads/' + this.form.img}]
+        if (this.form.img) {
+          this.imageUrl = [{name: '缩略图', url: 'http://127.0.0.1/vuecms_php/public/uploads/' + this.form.img}]
+        }
       }
     })
    this.$store.dispatch('changeMenuList')

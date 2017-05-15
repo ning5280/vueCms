@@ -137,9 +137,8 @@ export default {
         this.multipleSelection = val
       },
       handleEdit (index, row) {
-        console.log(index, row)
-        this.menuInfo = this.tableData3[index]
-        this.dialogFormVisible1 = true
+       let id = row.id
+       this.$router.push({name: 'editarticle', params: {id: id}})
       },
       handleDelete (index, row) {
         publicFunc.confirm({
