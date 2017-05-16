@@ -8,6 +8,8 @@ import ArticleList from '@/pages/ArticleList'
 import AddArticle from '@/pages/AddArticle'
 import EditArticle from '@/pages/EditArticle'
 import RuleList from '@/pages/RuleList'
+import RoleList from '@/pages/RoleList'
+import AddRole from '@/pages/AddRole'
 
 Vue.use(Router)
 export default new Router({
@@ -46,6 +48,16 @@ export default new Router({
           path: '/rulelist',
           name: 'rulelist',
           component: RuleList
+        },
+        {
+          path: '/rolelist',
+          name: 'rolelist',
+          component: RoleList
+        },
+         {
+          path: '/addrole',
+          name: 'addrole',
+          component: AddRole
         }
       ]
     },

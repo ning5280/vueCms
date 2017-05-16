@@ -8,6 +8,7 @@ import user from './modules/user'
 import menu from './modules/menu'
 import article from './modules/article'
 import rule from './modules/rule'
+import role from './modules/role'
 
 const store = new Vuex.Store({
   modules: {
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     user,
     menu,
     article,
-    rule
+    rule,
+    role
   },
   getters
 })

@@ -63,7 +63,12 @@
         <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
           <ul>
-            <li><a href="admin-role.html" title="角色管理">角色管理</a></li>
+            <li>
+               <router-link :to="{name: 'rolelist'}">角色列表</router-link>
+            </li>
+            <li>
+               <router-link :to="{name: 'addrole'}">添加角色</router-link>
+            </li>
             <li><a href="admin-permission.html" title="权限管理">权限管理</a></li>
             <li><a href="admin-list.html" title="管理员列表">管理员列表</a></li>
       </ul>
