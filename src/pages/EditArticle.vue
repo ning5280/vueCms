@@ -48,9 +48,11 @@
   <el-form-item label="活动形式">
     <quill-editor ref="myTextEditor"
                 v-model="form.content"
-                :config="editorOption"
+           
+                :options="editorOption"
                 @blur="onEditorBlur($event)"
                 @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)"
                 @ready="onEditorReady($event)">
   </quill-editor>
   </el-form-item>
@@ -141,7 +143,7 @@ export default {
       console.log('editor ready!', editor)
     },
     onEditorChange ({ editor, html, text }) {
-      // console.log('editor change!', editor, html, text)
+      console.log('editor change!', editor, html, text)
       this.content = html
     }
   },
