@@ -128,7 +128,7 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/role/index',
+              url: '/api/admin/role/del',
               data: {id: idList},
               success: () => {
                 this.$store.dispatch('changeRoleList')
