@@ -5,6 +5,7 @@ const getters = {
   articleList: state => state.article.articleList,
   articleListCount: state => state.article.articleCount,
   ruleList: state => state.rule.ruleList,
-  roleList: state => state.role.roleList
+  roleList: state => state.role.roleList,
+  adminList: state => state.admin.adminList
 }
 export default getters

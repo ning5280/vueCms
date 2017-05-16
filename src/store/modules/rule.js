@@ -1,6 +1,6 @@
 
 import publicFunc from '@/common/publicFunc'
-const menu = {
+const rule = {
   state: {
     ruleList: []
   },
@@ -22,4 +22,4 @@ const menu = {
   }
 }
 
-export default menu
+export default rule

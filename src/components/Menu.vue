@@ -45,20 +45,7 @@
       </ul>
     </dd>
   </dl>
-      <dl id="menu-member">
-        <dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-        <dd>
-          <ul>
-            <li><a href="member-list.html" title="会员列表">会员列表</a></li>
-            <li><a href="member-del.html" title="删除的会员">删除的会员</a></li>
-            <li><a href="member-level.html" title="等级管理">等级管理</a></li>
-            <li><a href="member-scoreoperation.html" title="积分管理">积分管理</a></li>
-            <li><a href="member-record-browse.html" title="浏览记录">浏览记录</a></li>
-            <li><a href="member-record-download.html" title="下载记录">下载记录</a></li>
-            <li><a href="member-record-share.html" title="分享记录">分享记录</a></li>
-      </ul>
-    </dd>
-  </dl>
+
       <dl id="menu-admin">
         <dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
@@ -70,33 +57,18 @@
                <router-link :to="{name: 'addrole'}">添加角色</router-link>
             </li>
             <li><a href="admin-permission.html" title="权限管理">权限管理</a></li>
-            <li><a href="admin-list.html" title="管理员列表">管理员列表</a></li>
+            <li>
+                <router-link :to="{name: 'adminlist'}">管理员列表</router-link>
+            </li>
       </ul>
     </dd>
   </dl>
-      <dl id="menu-tongji">
-        <dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-        <dd>
-          <ul>
-            <li><a href="charts-1.html" title="折线图">折线图</a></li>
-            <li><a href="charts-2.html" title="时间轴折线图">时间轴折线图</a></li>
-            <li><a href="charts-3.html" title="区域图">区域图</a></li>
-            <li><a href="charts-4.html" title="柱状图">柱状图</a></li>
-            <li><a href="charts-5.html" title="饼状图">饼状图</a></li>
-            <li><a href="charts-6.html" title="3D柱状图">3D柱状图</a></li>
-            <li><a href="charts-7.html" title="3D饼状图">3D饼状图</a></li>
-      </ul>
-    </dd>
-  </dl>
+
       <dl id="menu-system">
         <dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
         <dd>
           <ul>
             <li><a href="system-base.html" title="系统设置">系统设置</a></li>
-            <li><a href="system-category.html" title="栏目管理">栏目管理</a></li>
-            <li><a href="system-data.html" title="数据字典">数据字典</a></li>
-            <li><a href="system-shielding.html" title="屏蔽词">屏蔽词</a></li>
-            <li><a href="system-log.html" title="系统日志">系统日志</a></li>
       </ul>
     </dd>
   </dl>

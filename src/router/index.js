@@ -11,6 +11,7 @@ import RuleList from '@/pages/RuleList'
 import RoleList from '@/pages/RoleList'
 import AddRole from '@/pages/AddRole'
 import EditRole from '@/pages/EditRole'
+import AdminList from '@/pages/AdminList'
 
 Vue.use(Router)
 export default new Router({
@@ -64,6 +65,11 @@ export default new Router({
           path: '/editrole/:id',
           name: 'editrole',
           component: EditRole
+        },
+        {
+          path: '/adminlist',
+          name: 'adminlist',
+          component: AdminList
         }
       ]
     },

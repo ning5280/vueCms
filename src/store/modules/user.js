@@ -24,7 +24,6 @@ const user = {
     SET_TOKEN: (state, token) => {
       state.token = token
     }
-
   },
   actions: {
      // 获取用户信息
