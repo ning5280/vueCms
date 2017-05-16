@@ -24,7 +24,7 @@ export default {
 }
 </script>
 <style>
-  input[type=text]{
-    width:420px;
-  }
+   form input[type=text]{
+     width:420px;
+   }
 </style>

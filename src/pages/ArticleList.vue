@@ -73,6 +73,7 @@
   <div class="block">
  
     <el-pagination
+ 
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="pageNo"

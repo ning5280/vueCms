@@ -6,6 +6,16 @@
       <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="Hui-article">
     <br>
+        <el-button @click="dialogFormVisible = true">添加管理员</el-button>
+
+    <el-dialog title="添加管理员"  :visible.sync="dialogFormVisible" :modal="false" >
+     <add-admin @close = 'closeDialog("dialogFormVisible")'></add-admin>
+    </el-dialog>
+
+   <el-dialog title="编辑管理员" :visible.sync="dialogFormVisible1" :modal="false" >
+     <edit-admin  :form = 'adminInfo' @close = 'closeDialog("dialogFormVisible1")'></edit-admin>
+    </el-dialog>
+
     <el-table
     ref="multipleTable"
     :data="tableData3"
@@ -32,14 +42,18 @@
       width="150">
       <template scope="scope">{{ scope.row.id == 1?"超级管理员":scope.row.rname }}</template>
     </el-table-column>
-
+  <el-table-column
+      prop="realname"
+      label="真实姓名"
+      width="120">
+    </el-table-column>
     <el-table-column
- 
+      width="100"
       label="状态"
       show-overflow-tooltip>
-       <template scope="scope" v-if="scope.row.id!==1">
-         <el-button v-if="scope.row.status==1" @click="menuStatus(scope.row,0)" type="success" size="small">已显示</el-button>
-         <el-button v-if="scope.row.status==0" @click="menuStatus(scope.row,1)" type="danger" size="small">已隐藏</el-button>
+       <template scope="scope" >
+         <el-button v-if="scope.row.status==1" @click="changeStatus(scope.row,0)" type="success" size="small">正常</el-button>
+         <el-button v-if="scope.row.status==0" @click="changeStatus(scope.row,1)" type="danger" size="small">暂停使用</el-button>
        </template>
     </el-table-column>
     <el-table-column
@@ -77,6 +91,9 @@
 <script>
 import foot from '@/components/foot'
 import publicFunc from '@/common/publicFunc'
+import addAdmin from '@/pages/AddAdmin'
+import editAdmin from '@/pages/EditAdmin'
+
 export default {
   name: 'AdminList',
   data () {
@@ -84,11 +101,16 @@ export default {
       title: '管理员列表',
       msg: 'Welcome to Your Vue.js App',
       total: 0,
-      multipleSelection: []
+      multipleSelection: [],
+      dialogFormVisible: false,
+      dialogFormVisible1: false,
+      adminInfo: {}
     }
   },
   components: {
-    foot
+    foot,
+    addAdmin,
+    editAdmin
   },
   computed: {
     tableData3 () {
@@ -109,21 +131,34 @@ export default {
           this.$refs.multipleTable.clearSelection()
         }
       },
-      handleEdit (index, row) {
-        let id = row.id
-        this.$router.push({name: 'editrole', params: {id: id}})
-      },
       handleSelectionChange (val) {
         this.multipleSelection = val
+      },
+      closeDialog (dialogName) {
+        this[[dialogName]] = false
+      },
+      handleEdit (index, row) {
+        this.adminInfo = this.tableData3[index]
+        this.dialogFormVisible1 = true
+      },
+      changeStatus (row, status) {
+        let id = row.id
+        publicFunc.ajaxPost({
+          url: '/api/admin/admin/changestatus',
+          data: {id: id, status: status},
+          success: res => {
+             this.$store.dispatch('changeAdminList')
+          }
+        })
       },
       handleDelete (index, row) {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/role/del',
+              url: '/api/admin/admin/del',
               data: {id: row.id},
               success: () => {
-                this.$store.dispatch('changeRoleList')
+                this.$store.dispatch('changeAdminList')
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
@@ -141,10 +176,10 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/role/del',
+              url: '/api/admin/admin/del',
               data: {id: idList},
               success: () => {
-                this.$store.dispatch('changeRoleList')
+                this.$store.dispatch('changeAdminList')
                 this.$message({
                   type: 'success',
                   message: '删除成功!'
