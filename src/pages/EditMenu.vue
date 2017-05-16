@@ -1,5 +1,5 @@
 <template>
-   <el-form   >
+   <el-form   label-width="150px">
     <el-form-item label="菜单名称">
       <el-input v-model="form.title" placeholder="菜单名称"></el-input>
     </el-form-item>

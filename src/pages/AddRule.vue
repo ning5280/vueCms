@@ -1,5 +1,5 @@
 <template>
-   <el-form   >
+   <el-form   label-width="150px">
     <el-form-item label="规则名称">
       <el-input v-model="form.title" placeholder="规则名称"></el-input>
     </el-form-item>

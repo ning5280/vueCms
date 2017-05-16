@@ -1,7 +1,7 @@
 <template>
-   <el-form   >
+   <el-form   label-width="150px">
     <el-form-item label="菜单名称">
-      <el-input v-model="form.title" placeholder="菜单名称"></el-input>
+      <el-input  v-model="form.title" placeholder="菜单名称"></el-input>
     </el-form-item>
     <el-form-item label="所属菜单">
       <el-select v-model="form.pid" placeholder="所属菜单" no-data-text="请选择">
@@ -71,5 +71,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+   
 </style>
