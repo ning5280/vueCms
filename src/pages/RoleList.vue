@@ -100,6 +100,10 @@ export default {
           this.$refs.multipleTable.clearSelection()
         }
       },
+      handleEdit (index, row) {
+        let id = row.id
+        this.$router.push({name: 'editrole', params: {id: id}})
+      },
       handleSelectionChange (val) {
         this.multipleSelection = val
       },

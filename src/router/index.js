@@ -10,6 +10,7 @@ import EditArticle from '@/pages/EditArticle'
 import RuleList from '@/pages/RuleList'
 import RoleList from '@/pages/RoleList'
 import AddRole from '@/pages/AddRole'
+import EditRole from '@/pages/EditRole'
 
 Vue.use(Router)
 export default new Router({
@@ -58,6 +59,11 @@ export default new Router({
           path: '/addrole',
           name: 'addrole',
           component: AddRole
+        },
+         {
+          path: '/editrole/:id',
+          name: 'editrole',
+          component: EditRole
         }
       ]
     },
