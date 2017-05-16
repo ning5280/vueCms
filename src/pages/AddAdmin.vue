@@ -15,6 +15,7 @@
     <el-select v-model="form.rid" placeholder="请选择">
       <el-option
         v-for="item in roleList"
+        :key="item.id"
         :label="item.name"
         :value="item.id">
       </el-option>
