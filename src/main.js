@@ -17,7 +17,7 @@ Vue.http.options.emulateJSON = true
 Vue.http.interceptors.push((request, next) => {
   store.dispatch('changeLoadingStatus', 1)
 // ajax开始前
-  let token = store.getters.token
+  let token = store.getters.token ? store.getters.token : sessionStorage.getItem('token')
 Vue.http.headers.common.token = token
   next((response) => {
     console.log('ajaxjieshu')
@@ -28,8 +28,16 @@ Vue.http.headers.common.token = token
 })
 // 路由钩子
 router.beforeEach((to, from, next) => {
-  console.log(arguments)
-  next()
+  if (to.fullPath === '/login') {
+    next()
+  } else {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      next()
+    } else {
+      router.replace({path: '/login'})
+    }
+  }
 })
 /* eslint-disable no-new */
 new Vue({

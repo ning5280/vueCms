@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import { MessageBox, Message } from 'element-ui'
+import router from '@/router'
 
 Vue.use(VueResource)
 const ajaxPost = e => {
@@ -16,6 +17,8 @@ const ajaxPost = e => {
                 message: '网络错误',
                 type: 'error'
             })
+        } else if (res.body.code === 11) {
+           router.push({path: '/login'})
         } else {
             Message({
                 showClose: true,

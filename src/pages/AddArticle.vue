@@ -26,7 +26,7 @@
 
 <el-upload
   class="upload-demo"
-  action="/api/admin/article/upload"
+  action="/api/admin/login/upload"
   :before-upload="handlePreview"
   :on-remove="handleRemove"
   :on-success="handleAvatarSuccess"
