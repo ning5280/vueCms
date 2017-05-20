@@ -77,7 +77,7 @@ export default {
           let data = res.body
           sessionStorage.setItem('token', data.data.token)
           this.$store.commit('SET_TOKEN', data.data.token)
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'welcome' })
         } else {
            this.$message({
               showClose: true,
