@@ -49,7 +49,7 @@ export default {
       delete (this.form.create_time)
       delete (this.form.update_time)
       publicFunc.ajaxPost({
-        url: '/api/admin/admin/edit',
+        url: process.env.API_ROOT + 'admin/admin/edit',
         data: this.form,
         success: res => {
           console.log(res)

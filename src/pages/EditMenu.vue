@@ -34,7 +34,7 @@ export default {
   methods: {
     edit () {
       publicFunc.ajaxPost({
-        url: '/api/admin/menu/edit',
+        url: process.env.API_ROOT + 'admin/menu/edit',
         data: this.form,
         success: res => {
            this.$store.dispatch('changeMenuList')

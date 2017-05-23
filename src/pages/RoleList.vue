@@ -111,7 +111,7 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/role/del',
+              url: process.env.API_ROOT + 'admin/role/del',
               data: {id: row.id},
               success: () => {
                 this.$store.dispatch('changeRoleList')
@@ -132,7 +132,7 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/role/del',
+              url: process.env.API_ROOT + 'admin/role/del',
               data: {id: idList},
               success: () => {
                 this.$store.dispatch('changeRoleList')

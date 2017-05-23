@@ -54,7 +54,7 @@ export default {
   methods: {
     add () {
       publicFunc.ajaxPost({
-        url: '/api/admin/admin/add',
+        url: process.env.API_ROOT + 'admin/admin/add',
         data: this.form,
         success: res => {
           console.log(res)

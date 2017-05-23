@@ -133,7 +133,7 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/rule/del',
+              url: process.env.API_ROOT + 'admin/rule/del',
               data: {id: row.id},
               success: () => {
                 this.$store.dispatch('changeRuleList')
@@ -152,7 +152,7 @@ export default {
       menuStatus (row, status) {
         let id = row.id
         publicFunc.ajaxPost({
-          url: '/api/admin/rule/changestatus',
+          url: process.env.API_ROOT + 'admin/rule/changestatus',
           data: {id: id, status: status},
           success: res => {
              this.$store.dispatch('changeRuleList')
@@ -167,7 +167,7 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/rule/del',
+              url: process.env.API_ROOT + 'admin/rule/del',
               data: {id: idList},
               success: () => {
                 this.$store.dispatch('changeRuleList')

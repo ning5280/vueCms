@@ -72,12 +72,13 @@ export default {
         password: formData.password,
         code: formData.code
       }
-      this.$http.post('/api/admin/login/index', data).then(res => {
+      this.$http.post(process.env.API_ROOT + 'admin/login/index', data).then(res => {
         if (res.status === 200 && res.body.code === 1) {
           let data = res.body
           sessionStorage.setItem('token', data.data.token)
           this.$store.commit('SET_TOKEN', data.data.token)
-          this.$router.push({ name: 'welcome' })
+          this.$router.replace({ name: 'welcome' })
+          // location.href = 'http://localhost:8080/#/welcome'
         } else {
            this.$message({
               showClose: true,

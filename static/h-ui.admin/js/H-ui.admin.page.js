@@ -122,7 +122,7 @@ $(function(){
 	$.Huifold(".menu_dropdown dl dt",".menu_dropdown dl dd","fast",1,"click");	
 		
 	/*换肤*/
-	$("#Hui-skin .dropDown-menu a").click(function(){
+	$(document).on("click",'#Hui-skin .dropDown-menu a',function(){
 		var v = $(this).attr("data-val");
 		$.cookie("Huiskin", v);
 		var hrefStr=$("#skin").attr("href");

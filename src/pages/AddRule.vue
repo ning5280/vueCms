@@ -51,7 +51,7 @@ export default {
   methods: {
     add () {
       publicFunc.ajaxPost({
-        url: '/api/admin/rule/add',
+        url: process.env.API_ROOT + 'admin/rule/add',
         data: this.form,
         success: res => {
            this.$store.dispatch('changeRuleList')

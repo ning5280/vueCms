@@ -99,7 +99,7 @@ export default {
   methods: {
     add () {
       publicFunc.ajaxPost({
-        url: '/api/admin/article/edit',
+        url: process.env.API_ROOT + 'admin/article/edit',
         data: this.form,
         success: res => {
           console.log(res)
@@ -150,7 +150,7 @@ export default {
   created: function () {
     let id = this.$route.params.id
     publicFunc.ajaxPost({
-      url: '/api/admin/article/info',
+      url: process.env.API_ROOT + 'admin/article/info',
       data: {id: id},
       success: res => {
         this.form = res.body.data

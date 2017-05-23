@@ -70,7 +70,7 @@ export default {
       let treeStr = treeList.join(',')
       this.form.rules = treeStr
       publicFunc.ajaxPost({
-        url: '/api/admin/role/edit',
+        url: process.env.API_ROOT + 'admin/role/edit',
         data: this.form,
         success: res => {
           console.log(res)
@@ -83,7 +83,7 @@ export default {
   },
   created: function () {
    publicFunc.ajaxPost({
-      url: '/api/admin/rule/leveltree',
+      url: process.env.API_ROOT + 'admin/rule/leveltree',
       data: {},
       success: res => {
         console.log(res)
@@ -95,7 +95,7 @@ export default {
 
     let id = this.$route.params.id
     publicFunc.ajaxPost({
-      url: '/api/admin/role/info',
+      url: process.env.API_ROOT + 'admin/role/info',
       data: {id: id},
       success: res => {
         this.form = res.body.data

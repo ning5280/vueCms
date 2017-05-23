@@ -127,7 +127,7 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/menu/del',
+              url: process.env.API_ROOT + 'admin/menu/del',
               data: {id: row.id},
               success: () => {
                 this.$store.dispatch('changeMenuList')

@@ -145,7 +145,7 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/article/del',
+              url: process.env.API_ROOT + 'admin/article/del',
               data: {id: row.id},
               success: () => {
                 this.$store.dispatch('changeArticleList', {
@@ -168,7 +168,7 @@ export default {
       articleStatus (row, status) {
         let id = row.id
         publicFunc.ajaxPost({
-          url: '/api/admin/article/changestatus',
+          url: process.env.API_ROOT + 'admin/article/changestatus',
           data: {id: id, status: status},
           success: res => {
              this.$store.dispatch('changeArticleList', {
@@ -187,7 +187,7 @@ export default {
          publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/article/del',
+              url: process.env.API_ROOT + 'admin/article/del',
               data: {id: idList},
               success: () => {
                 this.$store.dispatch('changeArticleList', {

@@ -8815,3 +8815,5 @@ function($) {
 $(function() {
 	$('.switch')['bootstrapSwitch']();
 });
+
+

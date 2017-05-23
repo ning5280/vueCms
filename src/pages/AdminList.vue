@@ -144,7 +144,7 @@ export default {
       changeStatus (row, status) {
         let id = row.id
         publicFunc.ajaxPost({
-          url: '/api/admin/admin/changestatus',
+          url: process.env.API_ROOT + 'admin/admin/changestatus',
           data: {id: id, status: status},
           success: res => {
              this.$store.dispatch('changeAdminList')
@@ -155,7 +155,7 @@ export default {
         publicFunc.confirm({
           success: () => {
             publicFunc.ajaxPost({
-              url: '/api/admin/admin/del',
+              url: process.env.API_ROOT + 'admin/admin/del',
               data: {id: row.id},
               success: () => {
                 this.$store.dispatch('changeAdminList')
